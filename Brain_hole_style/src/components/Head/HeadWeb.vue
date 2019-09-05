@@ -9,44 +9,84 @@
         text-color="#FFD700"
         active-text-color="#ffd04b">
         <el-menu-item index="1">
-          <router-link :to="{name:'introducesys'}">关于联盟</router-link>
+          <router-link :to="{name:'Head'}">门面</router-link></router-link>
         </el-menu-item>
         <el-submenu index="2">
-          <template slot="title">教育研究中心</template>
-          <el-menu-item index="2-1">
-            <router-link :to="{name:'organizationsys'}">组织机构</router-link>
+          <template slot="title">脑洞</template>
+          <el-submenu index="2-1">
+            <template slot="title">世界观</template>
+            <el-menu-item index="2-1-1">
+              <router-link :to="{name:'World_Fantasy'}">奇幻玄幻</router-link>
+            </el-menu-item>
+            <el-menu-item index="2-1-2">
+              <router-link :to="{name:'World_Kongfu'}">武侠仙侠</router-link>
+            </el-menu-item>
+            <el-menu-item index="2-1-3">
+              <router-link :to="{name:'World_History'}">历史军事</router-link>
+            </el-menu-item>
+            <el-menu-item index="2-1-4">
+              <router-link :to="{name:'World_Urban'}">都市娱乐</router-link>
+            </el-menu-item>
+            <el-menu-item index="2-1-5">
+              <router-link :to="{name:'World_Science'}">科幻游戏</router-link>
+            </el-menu-item>
+          </el-submenu>
+
+          <el-submenu index="2-2">
+            <template slot="title">剧情</template>
+            <el-menu-item index="2-2-1">奇幻玄幻</el-menu-item>
+            <el-menu-item index="2-2-2">武侠仙侠</el-menu-item>
+            <el-menu-item index="2-2-3">历史军事</el-menu-item>
+            <el-menu-item index="2-2-4">都市娱乐</el-menu-item>
+            <el-menu-item index="2-2-5">科幻游戏</el-menu-item>
+          </el-submenu>
+          <el-submenu index="2-3">
+            <template slot="title">等级</template>
+            <el-menu-item index="2-3-1">奇幻玄幻</el-menu-item>
+            <el-menu-item index="2-3-2">武侠仙侠</el-menu-item>
+            <el-menu-item index="2-3-3">历史军事</el-menu-item>
+            <el-menu-item index="2-3-4">都市娱乐</el-menu-item>
+            <el-menu-item index="2-3-5">科幻游戏</el-menu-item>
+          </el-submenu>
+          <el-menu-item index="2-4">
+            <router-link :to="{name:''}">功法</router-link>
           </el-menu-item>
-          <el-menu-item index="2-2">
-            <router-link :to="{name:'test'}">师资力量</router-link>
+          <el-menu-item index="2-5">
+            <router-link :to="{name:''}">副本</router-link>
           </el-menu-item>
+          <el-menu-item index="2-6">
+            <router-link :to="{name:''}">装备和道具</router-link>
+          </el-menu-item>
+          <el-submenu index="2-7">
+            <template slot="title">宠物与坐骑</template>
+            <el-menu-item index="2-7-1">山海经</el-menu-item>
+            <el-menu-item index="2-7-2">变异</el-menu-item>
+            <el-menu-item index="2-7-3">四不像(自主创作)</el-menu-item>
+          </el-submenu>
         </el-submenu>
-        <el-submenu index="3">
-          <template slot="title">专业委员会</template>
-          <el-menu-item index="3-1">
-            <router-link :to="{name:'test'}">入会资格</router-link>
-          </el-menu-item>
-          <el-menu-item index="3-2">
-            <router-link :to="{name:'test'}">评判标准</router-link>
-          </el-menu-item>
-        </el-submenu>
+        <el-menu-item index="3">
+          <router-link :to="{name:''}">得罪人的榜单</router-link>
+        </el-menu-item>
         <el-menu-item index="4">
-          <router-link :to="{name:'message'}">公告</router-link>
+          <router-link :to="{name:''}">酒馆</router-link>
         </el-menu-item>
         <el-menu-item index="5">
-          <router-link :to="{name:'mactivity'}">活动</router-link>
-        </el-menu-item>
-        <el-menu-item index="6">
-          <router-link :to="{name:'login'}">登录</router-link>
+          <router-link :to="{name:'Login'}">个人中心</router-link>
         </el-menu-item>
       </el-menu>
     </el-header>
     <el-main>
-      <router-view></router-view>
+        <router-view></router-view>
     </el-main>
   </el-container>
 </template>
 <script>
-
+  export default {
+    data() {
+      return {
+      }
+    },
+  }
 </script>
 <style>
   a {
@@ -63,29 +103,39 @@
   }
 
   .el-header, .el-footer {
-    background-color: #B3C0D1;
+    background-color: #4a4c4f;
     color: #333;
     line-height: 100px;
   }
+
   .el-main {
-    background: url("/src/assets/logo.png") no-repeat;
-    height: 600px;
+    background: url("/static/assets/背景图片1.jpg") no-repeat;
+    height: 581px;
     width: 100%;
     text-align: center;
     background-size: cover;
   }
 
-  /*
-    body > .el-container {
-      margin-bottom: 100px;
-    }
+  .el-carousel__item h3 {
+    color: #475669;
+    font-size: 50px;
+    opacity: 0.75;
+    line-height: 200px;
+    margin: 0;
+  }
 
-    .el-container:nth-child(5) .el-aside,
-    .el-container:nth-child(6) .el-aside {
-      line-height: 40px;
-    }
+  .el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+  }
 
-    .el-container:nth-child(7) .el-aside {
-      line-height: 40px;
-    }*/
+  .el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+  }
+
+  .d1 {
+    color: #F0FFFF;
+    text-indent: 1em;
+    text-size: 15px;
+    font-color:#475669;
+  }
 </style>

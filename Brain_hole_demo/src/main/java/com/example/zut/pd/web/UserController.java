@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 @RestController
 public class UserController {
 
@@ -23,4 +25,13 @@ public class UserController {
         return userService.register(uname, uphone, uemail, upassword, ufavor);
     }
 
+    //登录
+    /*
+    * 手机号或邮箱  +   密码登录
+    * */
+    @RequestMapping(value = "Login")
+    String Login(@RequestParam("uid") String uid,
+                 @RequestParam("upassword") String upassword) {
+        return userService.Login(uid, upassword);
+    }
 }
