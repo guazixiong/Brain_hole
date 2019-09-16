@@ -19,16 +19,16 @@
        SELECT uid,uname,uphone,uemail,upassword,ufavor,umoney,ustar
        FROM user WHERE uemail=#{uemail} AND upassword=#{upassword}
     </select>
-    <!--根据手机号来查找用户-->
-    <select id="FindOnlyUserPhone" parameterType="com.example.zut.pd.dao.Userdao"
+    <!--根据序号来查找用户-->
+    <select id="FindUser" parameterType="com.example.zut.pd.dao.Userdao"
             resultType="com.example.zut.pd.dao.domain.UserDomain">
         SELECT uid,uname,uphone,uemail,upassword,ufavor,umoney,ustar
-        FROM user WHERE uemail=#{uphone}
+        FROM user WHERE uid=#{uid}
     </select>
-    <!--根据邮箱来查找用户-->
-    <select id="FindOnlyUserEmail" parameterType="com.example.zut.pd.dao.Userdao"
-            resultType="com.example.zut.pd.dao.domain.UserDomain">
-        SELECT uid,uname,uphone,uemail,upassword,ufavor,umoney,ustar
-        FROM user WHERE uemail=#{uemail}
-    </select>
+    <!--更新个人信息-->
+    <update id="updateUser" parameterType="com.example.zut.pd.dao.Userdao">
+        UPDATE user
+        SET uname=#{uname},uphone=#{uphone},uemail=#{uemail},upassword=#{upassword},ufavor=#{ufavor}
+        WHERE uid=#{uid}
+    </update>
 </mapper>

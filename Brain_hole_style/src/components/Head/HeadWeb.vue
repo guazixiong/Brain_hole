@@ -8,26 +8,25 @@
         background-color="#4a4c4f"
         text-color="#FFD700"
         active-text-color="#ffd04b">
-        <el-menu-item index="1">
-          <router-link :to="{name:'Head'}">门面</router-link></router-link>
+        <el-menu-item index="1" @click="error=success">门面</router-link>
         </el-menu-item>
         <el-submenu index="2">
           <template slot="title">脑洞</template>
           <el-submenu index="2-1">
             <template slot="title">世界观</template>
-            <el-menu-item index="2-1-1">
+            <el-menu-item index="2-1-1" @click="error=!success">
               <router-link :to="{name:'World_Fantasy'}">奇幻玄幻</router-link>
             </el-menu-item>
-            <el-menu-item index="2-1-2">
-              <router-link :to="{name:'World_Kongfu'}">武侠仙侠</router-link>
+            <el-menu-item index="2-1-2" @click="error=!success">
+              <router-link :to="{name:'World_Kungfu'}">武侠仙侠</router-link>
             </el-menu-item>
-            <el-menu-item index="2-1-3">
+            <el-menu-item index="2-1-3" @click="error=!success">
               <router-link :to="{name:'World_History'}">历史军事</router-link>
             </el-menu-item>
-            <el-menu-item index="2-1-4">
+            <el-menu-item index="2-1-4" @click="error=!success">
               <router-link :to="{name:'World_Urban'}">都市娱乐</router-link>
             </el-menu-item>
-            <el-menu-item index="2-1-5">
+            <el-menu-item index="2-1-5" @click="error=!success">
               <router-link :to="{name:'World_Science'}">科幻游戏</router-link>
             </el-menu-item>
           </el-submenu>
@@ -70,13 +69,28 @@
         <el-menu-item index="4">
           <router-link :to="{name:''}">酒馆</router-link>
         </el-menu-item>
-        <el-menu-item index="5">
+        <el-menu-item index="5" v-show="error=!success">
           <router-link :to="{name:'Login'}">个人中心</router-link>
         </el-menu-item>
       </el-menu>
     </el-header>
     <el-main>
+      <div v-show="!error">
+        <div>
+          <el-carousel :interval="4000" type="card" height="200px">
+            <el-carousel-item v-for="item in imagesbox" :key="item.id">
+              <img :src="item.src">
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+        <div class="d1">
+          <h1>脑点子</h1>
+          <p><span>让作者不再以没有灵感而太监,欢迎各位书友前来填坑,创造出更好更有趣的书籍</span></p>
+        </div>
+      </div>
+      <div v-show="error">
         <router-view></router-view>
+      </div>
     </el-main>
   </el-container>
 </template>
@@ -84,6 +98,18 @@
   export default {
     data() {
       return {
+        imagesbox: [{
+          id: 1,
+          src: 'static/assets/快来啊.png',
+        }, {
+          id: 2,
+          src: 'static/assets/贱笑.jpg',
+        }, {
+          id: 3,
+          src: 'static/assets/阴险.png',
+        }],
+        error: false,
+        success: false,
       }
     },
   }
@@ -134,8 +160,8 @@
 
   .d1 {
     color: #F0FFFF;
-    text-indent: 1em;
+    /*text-indent: 1em;*/
     text-size: 15px;
-    font-color:#475669;
+    /*font-color:#475669;*/
   }
 </style>

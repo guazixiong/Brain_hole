@@ -1,7 +1,7 @@
 <template>
   <div class="paper">
     <div style="margin-top:70px;margin-bottom:50px;">
-      账号<input type="text" v-model="uid"/>
+      账号<input type="text" v-model="phone_or_email"/>
       <span v-if="error.name" class="err-msg">{{error.name}}</span>
     </div>
 
@@ -65,7 +65,7 @@
   export default {
     data() {
       return {
-        uid: '',
+        phone_or_email: '',
         upassword: '',
 
         dialogFormVisible: false,
@@ -97,7 +97,7 @@
           label: '科幻游戏'
         }],
         value1: [],
-        ufavor:'',
+        ufavor: '',
 
       }
     },
@@ -108,25 +108,26 @@
       },
       //登录
       login() {
-        var obj = this.uid;
-        var infostr = JSON.stringify(obj);
-        sessionStorage.obj = infostr;
-        console.log(obj);
         //书友登录
         console.log(this.cradio);
         if (this.cradio == 1) {
           this.$axios({
             method: 'get',
-            url: 'http://127.0.0.1:9527/Login?uid=' + this.uid + '&upassword=' + this.upassword,
+            url: 'http://127.0.0.1:9527/Login?phone_or_email=' + this.phone_or_email + '&upassword=' + this.upassword,
           }).then(response => {
+            /*拿到后端传回来的uid值*/
             const data = response.data;
             console.log(data);
-            if (data=="执行成功") {
+            if (data == "用户不存在,请检查你的账号和密码")
+              alert(data);
+            else {
+              //将uid值保存到session对象中
+              var obj = data;
+              var infostr = JSON.stringify(obj);
+              sessionStorage.obj = infostr;
+              console.log(obj);
               const {$router} = this;
               $router.push({name: 'UserWeb'});
-            }
-            else {
-              alert(data);
             }
           }).catch(function (error) {
             alert(error);
@@ -141,26 +142,33 @@
       //注册
       onSubmit() {
         console.log(this.value1)
-        //将数组转换为string型,并用","隔开
+        /*用户选择的喜好,传递过去的是一个数组,将其保存为String,并用","隔开,便于后续的管理和开发*/
         for (let i = 0; i < this.value1.length; i++) {
           this.ufavor += this.value1[i];
-          if (i<this.value1.length-1)
-            this.ufavor+=",";
+          if (i < this.value1.length - 1)
+            this.ufavor += ",";
         }
         console.log(this.ufavor)
-        if (this.upassword2==this.surepassword) {
+        /*二次确认密码是否一致*/
+        if (this.upassword2 == this.surepassword) {
           this.$axios({
             method: 'get',
             url: 'http://127.0.0.1:9527/register?uname=' + this.uname + '&uphone=' + this.uphone + '&uemail=' + this.uemail + '&upassword=' + this.upassword2 + '&ufavor=' + this.ufavor,
           }).then(response => {
             const data = response.data;
             console.log(data);
-            if (data=="执行成功") {
-              const {$router} = this;
-              $router.push({name: 'UserWeb'});
+            if (data == "输入出现问题,请重新操作"||data=="用户已存在") {
+              alert(data);
             }
             else {
-              alert(data);
+              //将uid值保存到session对象中
+              var obj = data;
+              var infostr = JSON.stringify(obj);
+              sessionStorage.obj = infostr;
+              console.log(obj);
+              //页面跳转
+              const {$router} = this;
+              $router.push({name: 'UserWeb'});
             }
           })
         }

@@ -17,10 +17,9 @@ public interface Userdao {
     //通过邮箱+密码来查找用户
     UserDomain FindUserEmail(@Param("uemail") String uemail, @Param("upassword") String upassword);
 
-    //通过手机号来查找用户
-    UserDomain FindOnlyUserPhone(String uphone);
+    //通过序号来查找用户
+    UserDomain FindUser(String uid);
 
-    //通过邮箱来查找用户
-    UserDomain FindOnlyUserEmail(String uemail);
-
+    //更新用户个人信息
+    UserDomain updateUser(UserDomain userDomain);
 }

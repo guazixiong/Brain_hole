@@ -73,8 +73,6 @@ public class ToolsUtil {
             return false;
         else
             return true;
-
-
 /*        if (flag_phone1 == false && flag_email1 == true)
             return false;
             //排除因为空值而造成的返回true的条件
