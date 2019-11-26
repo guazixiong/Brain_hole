@@ -7,10 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 跨域过滤器
  *
- *  跨域过滤器
  * @author meng
- * @version
  * @since 2016年6月19日
  */
 @Component
@@ -27,6 +26,10 @@ public class CorsFilter implements Filter {
         System.out.println("*********************************过滤器被使用**************************");
         chain.doFilter(req, res);
     }
-    public void init(FilterConfig filterConfig) {}
-    public void destroy() {}
+
+    public void init(FilterConfig filterConfig) {
+    }
+
+    public void destroy() {
+    }
 }

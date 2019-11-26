@@ -12,10 +12,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
+    //依赖注入
     @Autowired
     Userdao userdao;
     @Autowired
     ReturnDomain returnDomain;
+    @Autowired
+    ToolsUtil toolsUtil;
+
     /*
     *     private String r0 = "输入出现问题,请重新操作";
     private String r1 = "执行成功";
@@ -24,8 +28,6 @@ public class UserServiceImpl implements UserService {
     private String r4 = "用户已存在";
     private String r5 = "用户不存在,请检查你的账号和密码";
     * */
-    @Autowired
-    ToolsUtil toolsUtil;
 
     //注册
     @Override
@@ -81,7 +83,7 @@ public class UserServiceImpl implements UserService {
         else if (toolsUtil.DetectEmail(phone_or_email).equals(returnDomain.getR1())) {
             //找到用户,返回用户的uid值
             if (userdao.FindUserEmail(phone_or_email, upassword) != null)
-                return String.valueOf(userdao.FindUserEmail(phone_or_email,upassword).getUid());
+                return String.valueOf(userdao.FindUserEmail(phone_or_email, upassword).getUid());
                 //未查找到用户
             else
                 return returnDomain.getR5();
