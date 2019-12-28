@@ -12,13 +12,13 @@ public interface Userdao {
     void register(UserDomain userDomain);
 
     //通过手机号+密码来查找用户
-    UserDomain FindUserPhone(@Param("uphone") String uphone, @Param("upassword") String upassword);
+    UserDomain FindUserPhone(@Param("uPhone") String uPhone, @Param("uPassword") String uPassword);
 
     //通过邮箱+密码来查找用户
-    UserDomain FindUserEmail(@Param("uemail") String uemail, @Param("upassword") String upassword);
+    UserDomain FindUserEmail(@Param("uEmail") String uEmail, @Param("uPassword") String uPassword);
 
     //通过序号来查找用户
-    UserDomain FindUser(String uid);
+    UserDomain FindUser(String uId);
 
     //更新用户个人信息
     UserDomain updateUser(UserDomain userDomain);

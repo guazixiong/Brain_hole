@@ -17,44 +17,57 @@ public class UserController {
 
     //注册
     /*
-    * 网名,手机号,邮箱,密码,喜好
+    * 网名,手机号,邮箱,密码,喜好,问题1,答案1,问题2,答案2
     * */
     @RequestMapping(value = "register")
-    String register(@RequestParam("uname") String uname, @RequestParam("uphone") String uphone,
-                    @RequestParam("uemail") String uemail, @RequestParam("upassword") String upassword,
-                    @RequestParam("ufavor") String ufavor) {
-        return userService.register(uname, uphone, uemail, upassword, ufavor);
+    String register(@RequestParam("uName") String uName, @RequestParam("uPhone") String uPhone,
+                    @RequestParam("uEmail") String uEmail, @RequestParam("uPassword") String uPassword,
+                    @RequestParam("uFavor") String uFavor, @RequestParam("uProblem1") String uProblem1,
+                    @RequestParam("uQuestion1") String uQuestion1, @RequestParam("uProblem2") String uProblem2,
+                    @RequestParam("uQuestion2") String uQuestion2) {
+        return userService.register(uName, uPhone, uEmail, uPassword, uFavor, uProblem1, uQuestion1, uProblem2, uQuestion2);
     }
 
     //登录
     /*
     * 手机号或邮箱  +   密码登录
+    * 返回用户的序列号
     * */
     @RequestMapping(value = "Login")
-    String Login(@RequestParam("phone_or_email") String phone_or_email,
-                 @RequestParam("upassword") String upassword) {
-        return userService.Login(phone_or_email, upassword);
+    String LoginPhoneEmail(@RequestParam("phone_or_email") String phone_or_email,
+                           @RequestParam("uPassword") String uPassword) {
+        return userService.LoginPhoneEmail(phone_or_email, uPassword);
+    }
+
+    //登录
+    /*
+    * 序列号+密码登录
+    * 返回用户的序列号
+    * */
+    int LoginId(@RequestParam("Id") String Id,
+                @RequestParam("uPassword") String uPassword) {
+        return userService.LoginId(Id, uPassword);
     }
 
     //返回个人信息
-    //根据登录界面返回的账号uid
+    //根据登录界面返回的账号uId
     @RequestMapping(value = "showUser")
-    UserDomain showUser(@RequestParam("uid") String uid){
-        return userService.showUser(uid);
+    UserDomain showUser(@RequestParam("uId") String uId) {
+        return userService.showUser(uId);
     }
 
     //更新个人信息
     /*
     * 通过登录之后获取到的账号(手机号/邮箱)
     * 允许更改
-    * 网名uname,手机号uphone,邮箱uemail,密码upassword,喜好ufavor
+    * 网名uName,手机号uPhone,邮箱uEmail,密码uPassword,喜好uFavor
     *
     * */
     @RequestMapping(value = "updateUser")
-    UserDomain updateUser(@RequestParam("uid")String uid,@RequestParam("uname")String uname,
-                          @RequestParam("uphone")String uphone,@RequestParam("uemail")String uemail,
-                          @RequestParam("upassword")String upassword,
-                          @RequestParam("ufavor")String ufavor){
-        return userService.updateUser(uid,uname,uphone,uemail,upassword,ufavor);
+    UserDomain updateUser(@RequestParam("uId") String uId, @RequestParam("uName") String uName,
+                          @RequestParam("uPhone") String uPhone, @RequestParam("uEmail") String uEmail,
+                          @RequestParam("uPassword") String uPassword,
+                          @RequestParam("uFavor") String uFavor) {
+        return userService.updateUser(uId, uName, uPhone, uEmail, uPassword, uFavor);
     }
 }

@@ -1,76 +1,116 @@
 package com.example.zut.pd.dao.domain;
 
 public class UserDomain {
-    private int uid;   //序号 自动递增
-    private String uname; //网名
-    private String uphone=null;  //电话号
-    private String uemail=null;  //邮箱
-    private String upassword; //密码
-    private String ufavor=null;  //用户喜好
-    private double umoney=0;  //钱包
-    private String ustar=null;   //收藏夹
+    /*
+    * 编号,网名,电话号,邮箱,密码,用户喜好,钱包.收藏夹,密保问题1,回答1,密保问题2,回答2
+    * */
+    private int uId;   //序号 自动递增
+    private String uName; //网名
+    private String uPhone = null;  //电话号
+    private String uEmail = null;  //邮箱
+    private String uPassword; //密码
+    private String uFavor = null;  //用户喜好
+    private double uMoney = 0;  //钱包
+    private String uStar = null;   //收藏夹
+    private String uProblem1;  //密保问题1
+    private String uQuestion1; //回答1
+    private String uProblem2;  //密保问题2
+    private String uQuestion2; //回答2
 
-    public int getUid() {
-        return uid;
+
+    public int getuId() {
+        return uId;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public void setuId(int uId) {
+        this.uId = uId;
     }
 
-    public String getUname() {
-        return uname;
+    public String getuName() {
+        return uName;
     }
 
-    public void setUname(String uname) {
-        this.uname = uname;
+    public void setuName(String uName) {
+        this.uName = uName;
     }
 
-    public String getUphone() {
-        return uphone;
+    public String getuPhone() {
+        return uPhone;
     }
 
-    public void setUphone(String uphone) {
-        this.uphone = uphone;
+    public void setuPhone(String uPhone) {
+        this.uPhone = uPhone;
     }
 
-    public String getUemail() {
-        return uemail;
+    public String getuEmail() {
+        return uEmail;
     }
 
-    public void setUemail(String uemail) {
-        this.uemail = uemail;
+    public void setuEmail(String uEmail) {
+        this.uEmail = uEmail;
     }
 
-    public String getUpassword() {
-        return upassword;
+    public String getuPassword() {
+        return uPassword;
     }
 
-    public void setUpassword(String upassword) {
-        this.upassword = upassword;
+    public void setuPassword(String uPassword) {
+        this.uPassword = uPassword;
     }
 
-    public String getUfavor() {
-        return ufavor;
+    public String getuFavor() {
+        return uFavor;
     }
 
-    public void setUfavor(String ufavor) {
-        this.ufavor = ufavor;
+    public void setuFavor(String uFavor) {
+        this.uFavor = uFavor;
     }
 
-    public double getUmoney() {
-        return umoney;
+    public double getuMoney() {
+        return uMoney;
     }
 
-    public void setUmoney(double umoney) {
-        this.umoney = umoney;
+    public void setuMoney(double uMoney) {
+        this.uMoney = uMoney;
     }
 
-    public String getUstar() {
-        return ustar;
+    public String getuStar() {
+        return uStar;
     }
 
-    public void setUstar(String ustar) {
-        this.ustar = ustar;
+    public void setuStar(String uStar) {
+        this.uStar = uStar;
+    }
+
+    public String getuProblem1() {
+        return uProblem1;
+    }
+
+    public void setuProblem1(String uProblem1) {
+        this.uProblem1 = uProblem1;
+    }
+
+    public String getuQuestion1() {
+        return uQuestion1;
+    }
+
+    public void setuQuestion1(String uQuestion1) {
+        this.uQuestion1 = uQuestion1;
+    }
+
+    public String getuProblem2() {
+        return uProblem2;
+    }
+
+    public void setuProblem2(String uProblem2) {
+        this.uProblem2 = uProblem2;
+    }
+
+    public String getuQuestion2() {
+        return uQuestion2;
+    }
+
+    public void setuQuestion2(String uQuestion2) {
+        this.uQuestion2 = uQuestion2;
     }
 }

@@ -4,31 +4,32 @@
     <!--注册-->
     <insert id="register">
       insert into user
-        (uid, uname, uphone, uemail, upassword, ufavor, umoney, ustar)
-        values (#{uid},#{uname},#{uphone},#{uemail},#{upassword},#{ufavor},#{umoney},#{ustar})
+        (uId, uName, uPhone, uEmail, uPassword, uFavor, uMoney, uStar,uProblem1,uQuestion1,uProblem2,uQuestion2)
+        values
+        (#{uId},#{uName},#{uPhone},#{uEmail},#{uPassword},#{uFavor},#{uMoney},#{uStar},#{uProblem1},#{uQuestion1},#{uProblem2},#{uQuestion2})
     </insert>
     <!--根据手机号和密码查找用户-->
     <select id="FindUserPhone" parameterType="com.example.zut.pd.dao.Userdao"
             resultType="com.example.zut.pd.dao.domain.UserDomain">
-       SELECT uid,uname,uphone,uemail,upassword,ufavor,umoney,ustar
-       FROM user WHERE uphone=#{uphone} AND upassword=#{upassword}
+       SELECT uId,uName,uPhone,uEmail,uPassword,uFavor,uMoney,uStar
+       FROM user WHERE uPhone=#{uPhone} AND uPassword=#{uPassword}
     </select>
     <!--根据邮箱和密码查找用户-->
     <select id="FindUserEmail" parameterType="com.example.zut.pd.dao.Userdao"
             resultType="com.example.zut.pd.dao.domain.UserDomain">
-       SELECT uid,uname,uphone,uemail,upassword,ufavor,umoney,ustar
-       FROM user WHERE uemail=#{uemail} AND upassword=#{upassword}
+       SELECT uId,uName,uPhone,uEmail,uPassword,uFavor,uMoney,uStar
+       FROM user WHERE uEmail=#{uEmail} AND uPassword=#{uPassword}
     </select>
     <!--根据序号来查找用户-->
     <select id="FindUser" parameterType="com.example.zut.pd.dao.Userdao"
             resultType="com.example.zut.pd.dao.domain.UserDomain">
-        SELECT uid,uname,uphone,uemail,upassword,ufavor,umoney,ustar
-        FROM user WHERE uid=#{uid}
+        SELECT uId,uName,uPhone,uEmail,uPassword,uFavor,uMoney,uStar
+        FROM user WHERE uId=#{uId}
     </select>
     <!--更新个人信息-->
     <update id="updateUser" parameterType="com.example.zut.pd.dao.Userdao">
         UPDATE user
-        SET uname=#{uname},uphone=#{uphone},uemail=#{uemail},upassword=#{upassword},ufavor=#{ufavor}
-        WHERE uid=#{uid}
+        SET uName=#{uName},uPhone=#{uPhone},uEmail=#{uEmail},uPassword=#{uPassword},uFavor=#{uFavor}
+        WHERE uId=#{uId}
     </update>
 </mapper>

@@ -1,17 +1,21 @@
 package com.example.zut.pd.dao.domain;
 
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ReturnDomain {
-
+/*
+* 这是一个返回类,用于保存返回信息,便于后续的修改
+* */
     private String r0 = "输入出现问题,请重新操作";
     private String r1 = "执行成功";
     private String r2 = "执行失败";
     private String r3 = "参数为空";
     private String r4 = "用户已存在";
     private String r5 = "用户不存在,请检查你的账号和密码";
+    private String r6="普通用户";
+    private String r7="管理员用户";
+
 
     public String getR0() {
         return r0;
