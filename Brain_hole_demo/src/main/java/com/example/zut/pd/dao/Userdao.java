@@ -18,8 +18,11 @@ public interface Userdao {
     UserDomain FindUserEmail(@Param("uEmail") String uEmail, @Param("uPassword") String uPassword);
 
     //通过序号来查找用户
-    UserDomain FindUser(String uId);
+    UserDomain FindUser(int uId);
 
-    //更新用户个人信息
+    //更新用户个人信息,返回用户对象信息
     UserDomain updateUser(UserDomain userDomain);
+
+    //更新信息,只更新,不反悔对象信息
+    void updateUserAll(UserDomain userDomain);
 }

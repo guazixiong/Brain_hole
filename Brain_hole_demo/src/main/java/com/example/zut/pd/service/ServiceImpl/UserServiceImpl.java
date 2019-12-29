@@ -20,16 +20,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     ToolsUtil toolsUtil;
 
-    /*
-    *     private String r0 = "输入出现问题,请重新操作";
-    private String r1 = "执行成功";
-    private String r2 = "执行失败";
-    private String r3 = "参数为空";
-    private String r4 = "用户已存在";
-    private String r5 = "用户不存在,请检查你的账号和密码";
-    * */
-
-    //注册
+    //用户注册
     @Override
     public String register(String uName, String uPhone, String uEmail,
                            String uPassword, String uFavor, String uProblem1, String uQuestion1, String uProblem2,
@@ -54,10 +45,12 @@ public class UserServiceImpl implements UserService {
             else {
                 UserDomain userDomain = new UserDomain();
                 userDomain.setuName(uName);
-                if (!uPhone.equals("0"))
+                if (!uPhone.equals("0")) {
                     userDomain.setuPhone(uPhone);
-                if (!uEmail.equals("0"))
+                }
+                if (!uEmail.equals("0")) {
                     userDomain.setuEmail(uEmail);
+                }
                 userDomain.setuPassword(uPassword);
                 userDomain.setuFavor(uFavor);
                 userDomain.setuProblem1(uProblem1);
@@ -66,19 +59,19 @@ public class UserServiceImpl implements UserService {
                 userDomain.setuQuestion2(uQuestion2);
                 userdao.register(userDomain);
                 //获取uId值,传参到前端并保存在session对象中
-                String a=" ";
-                if (userdao.FindUserEmail(uEmail,uPassword)!=null)
-                    a=String.valueOf(userdao.FindUserEmail(uEmail,uPassword).getuId());
-                else if (userdao.FindUserPhone(uPhone,uPassword)!=null)
-                    a= String.valueOf(userdao.FindUserPhone(uPhone,uPassword).getuId());
+                String a = " ";
+                if (userdao.FindUserEmail(uEmail, uPassword) != null)
+                    a = String.valueOf(userdao.FindUserEmail(uEmail, uPassword).getuId());
+                else if (userdao.FindUserPhone(uPhone, uPassword) != null)
+                    a = String.valueOf(userdao.FindUserPhone(uPhone, uPassword).getuId());
                 else
-                    a="出现未知错误";
+                    a = "出现未知错误";
                 return a;
             }
         }
     }
 
-    //登录
+    //登录(通过手机号或者邮箱进行登录)
     @Override
     public String LoginPhoneEmail(String phone_or_email, String uPassword) {
         //判断是手机号还是邮箱
@@ -107,7 +100,7 @@ public class UserServiceImpl implements UserService {
 
     //登录(通过序列号进行登录)
     @Override
-    public int LoginId(String Id, String uPassword) {
+    public int LoginId(int Id, String uPassword) {
         /*
         * 返回属于用户的身份验证,普通用户为1,管理员为2
         * 用户的id直接由前端进行存储
@@ -119,22 +112,17 @@ public class UserServiceImpl implements UserService {
 
     //根据序号返回个人信息
     @Override
-    public UserDomain showUser(String uId) {
+    public UserDomain showUser(int uId) {
         return userdao.FindUser(uId);
     }
 
-    //更新个人信息
-        /*
-    * 通过登录之后获取到的账号(手机号/邮箱)
-    * 允许更改
-    * 网名uName,手机号uPhone,邮箱uEmail,密码uPassword,喜好uFavor
-    *
-    * */
+    //修改个人信息
     @Override
-    public UserDomain updateUser(String uId, String uName, String uPhone,
-                                 String uEmail, String uPassword, String uFavor) {
-        if (uName == null || toolsUtil.flag(uPhone, uEmail) == false
-                || uPassword.length() < 6 || uFavor == null
+    public UserDomain updateUser(int uId, String uName, String uFavor) {
+        /*
+        * 网名识别非法关键词,后续添加
+        * */
+        if (uName == null || uFavor == null
                 ) {
             //输入格式存在问题
             return null;
@@ -142,11 +130,69 @@ public class UserServiceImpl implements UserService {
             //格式正确,更新个人信息
             UserDomain userDomain = userdao.FindUser(uId);
             userDomain.setuName(uName);
-            userDomain.setuPhone(uPhone);
-            userDomain.setuEmail(uEmail);
-            userDomain.setuPassword(uPassword);
             userDomain.setuFavor(uFavor);
             return userdao.updateUser(userDomain);
+        }
+    }
+
+    //验证密保
+    @Override
+    public String VerifyEncrypted(int uId, String Problem, String Question) {
+        //uId和Problem事先预设,只有Question需要用户进行填写
+        if (Question.equals(" "))
+            return returnDomain.getR0();
+        else {
+            //找用户
+            UserDomain user = userdao.FindUser(uId);
+            //判别是哪一个用户
+            if (user.getuProblem1().equals(Problem) && user.getuQuestion1().equals(Question))
+                return returnDomain.getR1();
+            else if (user.getuProblem2().equals(Problem) && user.getuQuestion2().equals(Question))
+                return returnDomain.getR1();
+            else
+                return returnDomain.getR2();
+        }
+    }
+
+    //修改密码
+    @Override
+    public String updateUserPassword(int uId, String LaterPassword, String TodayPassword) {
+        //对密码长度进行辨别
+        if (LaterPassword.length() < 6 || TodayPassword.length() < 6)
+            return returnDomain.getR0();
+        else {
+            //找到用户,更改密码
+            UserDomain user = userdao.FindUser(uId);
+            //密码一致,执行成功
+            if (LaterPassword.equals(user.getuPassword())) {
+                //修改密码
+                user.setuPassword(TodayPassword);
+                userdao.updateUserAll(user);
+                return returnDomain.getR1();
+            }
+            //密码不一致,执行失败
+            else
+                return returnDomain.getR0();
+        }
+    }
+
+    //修改密保问题
+    @Override
+    public String updateUserEncrypted(int uId, String todayProblem1, String todayQuestion1, String todayProblem2, String todayQuestion2) {
+        //uId和问题都是确定的,只需要控制回答
+        if (todayQuestion1.equals(" ") || todayQuestion2.equals(" "))
+            return returnDomain.getR0();
+        else {
+            UserDomain user = userdao.FindUser(uId);
+            if (user != null) {
+                user.setuProblem1(todayProblem1);
+                user.setuQuestion1(todayQuestion1);
+                user.setuProblem2(todayProblem2);
+                user.setuQuestion2(todayQuestion2);
+                userdao.updateUserAll(user);
+                return returnDomain.getR1();
+            } else
+                return returnDomain.getR8();
         }
     }
 }

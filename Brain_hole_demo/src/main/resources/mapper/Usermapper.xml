@@ -11,25 +11,31 @@
     <!--根据手机号和密码查找用户-->
     <select id="FindUserPhone" parameterType="com.example.zut.pd.dao.Userdao"
             resultType="com.example.zut.pd.dao.domain.UserDomain">
-       SELECT uId,uName,uPhone,uEmail,uPassword,uFavor,uMoney,uStar
+       SELECT *
        FROM user WHERE uPhone=#{uPhone} AND uPassword=#{uPassword}
     </select>
     <!--根据邮箱和密码查找用户-->
     <select id="FindUserEmail" parameterType="com.example.zut.pd.dao.Userdao"
             resultType="com.example.zut.pd.dao.domain.UserDomain">
-       SELECT uId,uName,uPhone,uEmail,uPassword,uFavor,uMoney,uStar
+       SELECT *
        FROM user WHERE uEmail=#{uEmail} AND uPassword=#{uPassword}
     </select>
     <!--根据序号来查找用户-->
     <select id="FindUser" parameterType="com.example.zut.pd.dao.Userdao"
             resultType="com.example.zut.pd.dao.domain.UserDomain">
-        SELECT uId,uName,uPhone,uEmail,uPassword,uFavor,uMoney,uStar
-        FROM user WHERE uId=#{uId}
+        SELECT *  FROM user WHERE uId=#{uId}
     </select>
-    <!--更新个人信息-->
+    <!--更新个人信息,返回用户对象-->
     <update id="updateUser" parameterType="com.example.zut.pd.dao.Userdao">
         UPDATE user
-        SET uName=#{uName},uPhone=#{uPhone},uEmail=#{uEmail},uPassword=#{uPassword},uFavor=#{uFavor}
+        SET uName=#{uName},uPhone=#{uPhone},uEmail=#{uEmail},uPassword=#{uPassword},uFavor=#{uFavor},uMoney=#{uMoney},uStar=#{uStar},uProblem1=#{uProblem1},uQuestion1=#{uQuestion1},uProblem2=#{uProblem2},uQuestion2=#{uQuestion2}
         WHERE uId=#{uId}
     </update>
+    <!--更新信息,只更新-->
+    <update id="updateUserAll" parameterType="com.example.zut.pd.dao.Userdao">
+        UPDATE user
+        SET uName=#{uName},uPhone=#{uPhone},uEmail=#{uEmail},uPassword=#{uPassword},uFavor=#{uFavor},uMoney=#{uMoney},uStar=#{uStar},uProblem1=#{uProblem1},uQuestion1=#{uQuestion1},uProblem2=#{uProblem2},uQuestion2=#{uQuestion2}
+        WHERE uId=#{uId}
+    </update>
+
 </mapper>

@@ -25,19 +25,42 @@ public interface UserService {
     String LoginPhoneEmail(String phone_or_email, String uPassword);
 
     //登录(通过序列号进行登录)
-    int LoginId(String Id, String uPassword);
+    int LoginId(int Id, String uPassword);
 
     //返回用户个人信息
-    UserDomain showUser(String uId);
+    UserDomain showUser(int uId);
 
-    //更新个人信息
-        /*
-    * 通过登录之后获取到的账号(手机号/邮箱)
-    * 允许更改
-    * 网名uName,手机号uPhone,邮箱uEmail,密码uPassword,喜好uFavor
-    *
+    /*
+    * 更新个人信息
+    * 网名uName,喜好uFavor
     * */
-    UserDomain updateUser(String uId, String uName, String uPhone,
-                          String uEmail, String uPassword, String uFavor);
+    UserDomain updateUser(int uId, String uName, String uFavor);
 
+    /*
+    * 修改手机号
+    * 要求:填写手机号,发送验证码,识别验证码,完成验证
+    * */
+
+    /*
+    * 修改绑定邮箱
+    * 要求:填写邮箱,发送验证码,识别验证码,完成验证
+    * */
+
+    /*
+    *验证密保
+    * 返回执行成功或失败
+    * */
+    String VerifyEncrypted(int uId, String Problem, String Question);
+
+    /*
+   * 修改密码
+   * 返回执行成功与失败
+   * */
+    String updateUserPassword(int uId, String LaterPassword, String TodayPassword);
+
+    /*
+    * 修改密保问题
+    * 返回执行成功或失败
+    * */
+    String updateUserEncrypted(int uId, String todayProblem1, String todayQuestion1, String todayProblem2, String todayQuestion2);
 }
